@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use('/', Test, (req, res) => {
+app.use('/', Test.getId, Test.getSong, (req, res) => {
   console.log('data received');
   res.sendStatus(200);
 });
