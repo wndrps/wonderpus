@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 // Song model
 const songSchema = new Schema({
     track: {type: String, required: true},
+    trackId: {type: String, required: true},
     artist: {type: String, required: true},
     previewLink: {type: String, required: true},
     dataObj: {type: Object, required: true}

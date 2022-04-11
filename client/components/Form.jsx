@@ -15,8 +15,6 @@ class Form extends Component {
       this.clientId = '65f25198a7e44731924a5639662a68b6';
       this.clientSecret = 'ca0c2f2976ae40388596603a0b1d92eb';
   
-      this.artist = 'Polyphia';
-      this.track = '40oz';
       this.state = {
         savedSongs: ['3v3VFa7Dt32gNR27jfw7DG'],
       }
@@ -73,7 +71,7 @@ class Form extends Component {
       console.log('--------SONG NAME--------\n', name);
       console.log('--------ALBUM--------\n', album);
       console.log('--------ARTIST(S)--------\n', artists);
-      return topResult.id;
+      return topResult;
     };
 
     /**
@@ -101,6 +99,18 @@ class Form extends Component {
         return message;
       }
       // send a request to the backend team to add this song to our playlist
+      const dataObj = await this.queryTracks(`track:${track} artist:${artist}`);
+      console.log(dataObj),
+      console.log(typeof dataObj.preview_url),
+      await axios.post('/api/addSong', 
+        {
+          track: track,
+          trackId: dataObj.id,
+          artist: artist,
+          previewLink: dataObj.preview_url,
+          dataObj: dataObj,
+        }
+      )
       return await this.queryTracks(`track:${track} artist:${artist}`);
     }
 

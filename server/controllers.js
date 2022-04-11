@@ -9,8 +9,8 @@ const controllers = {
   async addSong(req, res, next) {
     try{
       console.log(req.body);
-      const { track, artist, previewLink, dataObj } = req.body; 
-      const newSong = await Song.create({ track, artist, previewLink, dataObj });
+      const { track, trackId, artist, previewLink, dataObj } = req.body; 
+      const newSong = await Song.create({ track, trackId, artist, previewLink, dataObj });
       console.log(newSong); 
       res.locals.newSong = newSong;
       return next();
