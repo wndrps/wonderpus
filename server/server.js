@@ -23,6 +23,10 @@ app.post('/api/addSong', controllers.addSong, (req, res) => {
   return res.status(201).json(res.locals.newSong);
 });
 
+app.get('/api/getSavedSongs', controllers.getSongList, (req, res) => {
+  return res.status(200).json(res.locals.songArray);
+});
+
 app.use('/api', controllers.getId, controllers.getSong, (req, res) => {
   console.log('data received');
   res.sendStatus(200);

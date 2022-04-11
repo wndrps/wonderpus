@@ -27,6 +27,26 @@ const controllers = {
 
   },
 
+  async getSongList(req, res, next) {
+    try{
+      const allSongs = await Song.find(); 
+      const songArray = [];
+      allSongs.forEach((el) => {
+        songArray.push(el.trackId);
+      })
+      res.locals.songArray = songArray;
+      return next(); 
+    }
+    catch (err){
+      return next({
+        log: err,
+        message: {
+          err: 'controllers.getSongList ERROR: check server logs for details'
+        }
+    })
+  }
+},
+
   //getSongList()
   //should return an array of song ids 
 
