@@ -16,6 +16,7 @@ class Form extends Component {
       this.track = '40oz';
     }
 
+    // gets access token from spotify using app client id and secret
     getAccessToken = async () => {
       try {
         const tokenUrl = 'https://accounts.spotify.com/api/token';
@@ -38,6 +39,8 @@ class Form extends Component {
       }
     };
 
+    // queries for a track given a query string
+    // uses the Spotify Web API JS package to access Spotify API
     queryTracks = async (queryString) => {
       const accessToken = await this.getAccessToken();
       this.spotifyApi.setAccessToken(accessToken);
@@ -56,6 +59,7 @@ class Form extends Component {
       console.log('--------ARTIST(S)--------\n', artists);
     };
 
+    // when "Search" is pressed, the queryTracks() is run
     async handleQuerySubmit(event) {
       event.preventDefault();
       await this.queryTracks(`track:${this.track} artist:${this.artist}`)
