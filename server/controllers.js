@@ -1,5 +1,6 @@
 
 const fetch = require('node-fetch'); // required v2 of node-fetch to use fetch
+const { response } = require('./server');
 
 // create user
 
@@ -27,11 +28,9 @@ Test.getSong = (req, res, next) => {
       Authorization: `Bearer ${process.env.CLIENT_ID}`
     }
   })
-  .then(response => {
-    console.log(response.json())
-    response.json()
-    return next();
-  });
+  .then(response => response.json())
+  .then(response => console.log(response));
+  return next();
 }
 
 module.exports = Test;

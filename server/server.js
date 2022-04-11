@@ -16,7 +16,7 @@ app.use('/api', Test.getId, Test.getSong, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log('Server listening on port: ' + PORT);
+  console.log('Listening on port: ' + PORT);
 });
 
 module.exports = app;
