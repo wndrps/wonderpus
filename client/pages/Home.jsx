@@ -9,7 +9,6 @@ class Home extends Component {
   render() {
    return(
       <div className="homepage">
-        <h2>Home</h2>
         <Form />
         <SongContainer />
         {/* <div>song container</div>

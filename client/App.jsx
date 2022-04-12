@@ -8,8 +8,8 @@ class App extends Component {
 
   render() {
     return(
-      <div className="app">
-        <h1>App</h1>
+      <div className="app" style={{maxWidth: '50%', margin: '0 auto'}}>
+        <h2 style={{display: 'flex', justifyContent: 'center'}}>Welcome to your dashboard!</h2>
         <Home />
       </div>
     )

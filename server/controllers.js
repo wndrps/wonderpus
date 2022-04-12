@@ -8,10 +8,10 @@ const controllers = {
 
   async addSong(req, res, next) {
     try{
-      console.log(req.body);
+      // console.log(req.body);
       const { track, trackId, artist, previewLink, dataObj } = req.body; 
       const newSong = await Song.create({ track, trackId, artist, previewLink, dataObj });
-      console.log(newSong); 
+      // console.log(newSong); 
       res.locals.newSong = newSong;
       return next();
     }
@@ -34,6 +34,7 @@ const controllers = {
       allSongs.forEach((el) => {
         songArray.push(el.trackId);
       })
+      // console.log(songArray);
       res.locals.songArray = songArray;
       return next(); 
     }

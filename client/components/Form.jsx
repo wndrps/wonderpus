@@ -12,11 +12,12 @@ class Form extends Component {
       this.spotifyApi = new SpotifyWebApi();
       // TODO:
       // change from hardcode to process.env variables sent from backend
-      this.clientId = '65f25198a7e44731924a5639662a68b6';
-      this.clientSecret = 'ca0c2f2976ae40388596603a0b1d92eb';
+      // For future devs: need to make a Spotify App on developer.spotify.com to get clientId and clientSecret
+      this.clientId = '';
+      this.clientSecret = '';
   
       this.state = {
-        savedSongs: ['3v3VFa7Dt32gNR27jfw7DG'],
+        savedSongs: [],
       }
     }
 
@@ -55,15 +56,15 @@ class Form extends Component {
      * to search for songs based on the query string.
      */
     queryTracks = async (queryString) => {
-      // const accessToken = await this.getAccessToken();
-      const accessToken = 'BQAI3jhzC1LQgoUhCn6bXVXuapV0N2i-pc83Kj-2lU5kW8yHEOiXGdpGNvVSorHChPAfShiN6SoW7i_cgVQ';
+      const accessToken = await this.getAccessToken();
+      console.log(accessToken);
       this.spotifyApi.setAccessToken(accessToken);
       const allResults = await this.spotifyApi.searchTracks(queryString)
         .then((data) => {
           console.log(data);
           return data.tracks.items
         });
-      console.log(allResults);
+      // console.log(allResults);
       console.log('--------ALL RESULTS--------\n', allResults);
       const topResult = allResults[0];
       console.log('--------TOP RESULT--------\n', topResult);
@@ -93,15 +94,17 @@ class Form extends Component {
       // console.log(event.target[1].value);
       const artist = event.target[0].value;
       const track = event.target[1].value;
+      console.log('TRACK:', track);
+      console.log('ARTIST:', artist);
       if (artist === '' || track === '') {
         const message = 'You must input an artist and track';
         alert(message);
-        return message;
+        return;
       }
       // send a request to the backend team to add this song to our playlist
       const dataObj = await this.queryTracks(`track:${track} artist:${artist}`);
-      console.log(dataObj),
-      console.log(typeof dataObj.preview_url),
+      // console.log(dataObj),
+      // console.log(typeof dataObj.preview_url),
       await axios.post('/api/addSong', 
         {
           track: track,
@@ -116,19 +119,18 @@ class Form extends Component {
 
     render() {
       return(
-        <form id="search-form" onSubmit={(event) => this.handleQuerySubmit(event)}>
-          <p>
-            Type an artist, album, or song to start your search.
-          </p>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <form id="search-form" onSubmit={(event) => this.handleQuerySubmit(event)}>
           <label>
             <input id="query" type="text" placeholder='Artist'/>
           </label>
           <label>
             <input id="query" type="text" placeholder='Song'/>
           </label>
-          <input type="submit" value="Search" />
+          <input type="submit" value="Add Top Result" />
           <SearchedSongDisplay key="searchedSong" />
         </form>
+        </div>
       )
     }
   }
